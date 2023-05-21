@@ -126,20 +126,19 @@ public class GameView extends JFrame {
         scoreLabel.setText("SCORE: " + score);
     }
     
-    public void resetScore() {
-        updateScore(0);
-    }
     
-    public void resetGame() {
-        boardView.resetBackground();
-        updateScore(0);
-    }
+    // jika pake inputSocreView
+//    public void resetScore() {
+//        updateScore(0);
+//    }
+//    
+//     public void resetGame() {
+//        boardView.resetBackground();
+//        resetScore();
+//        startGame();
+//    }
     
-    public void gameOver() {
-        String playerName = JOptionPane.showInputDialog("Game Over!\nPlease enter your name");
-        System.out.println(playerName);
-        
-        resetGame();
-    }
+    
+    
 }
 

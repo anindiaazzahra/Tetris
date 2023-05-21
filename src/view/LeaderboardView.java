@@ -13,6 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class LeaderboardView extends JFrame {
     
@@ -20,6 +23,9 @@ public class LeaderboardView extends JFrame {
     public static final int TINGGI = 706;
     public JButton backBtn;
     private JLabel titleLabel;
+    private JPanel leaderboardPanel;
+    private JTable leaderboardTable;
+    private DefaultTableModel tableModel;
     
     public LeaderboardView() throws FontFormatException, IOException {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,6 +65,36 @@ public class LeaderboardView extends JFrame {
         
         leaderboardPanel.add(backBtn);
         leaderboardPanel.add(titleLabel);
+        
+        // create leaderboard table
+        String[] columnNames = {"Rank", "Player Name", "Score"};
+        Object[][] data = {
+            {"1", "Player 1", "1000"},
+            {"2", "Player 2", "800"},
+            {"3", "Player 3", "600"},
+            {"4", "Player 4", "400"},
+            {"5", "Player 5", "200"},
+            {"6", "Player 6", "200"},
+            {"7", "Player 7", "200"},
+            {"8", "Player 8", "200"},
+            {"9", "Player 9", "200"},
+            {"10", "Player 10", "200"},
+            {"11", "Player 11", "200"},
+            {"12", "Player 12", "200"},
+        };
+        tableModel = new DefaultTableModel(data, columnNames);
+        leaderboardTable = new JTable(tableModel);
+        leaderboardTable.setBounds(240, 230, 360, 200);
+        Font customFontLB = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/resources/fonts/PressStart2P.ttf"));
+        Font fontLB = customFontLB.deriveFont(Font.PLAIN, 12);
+        leaderboardTable.getTableHeader().setFont(fontLB);
+        leaderboardTable.setRowHeight(25);
+        leaderboardTable.setFont(fontLB);
+        leaderboardTable.setEnabled(false);
+        
+        JScrollPane scrollPane = new JScrollPane(leaderboardTable);
+        scrollPane.setBounds(240, 230, 360, 200);
+        leaderboardPanel.add(scrollPane);
         
         // setContentPane(leaderboardPanel);
         add(leaderboardPanel);

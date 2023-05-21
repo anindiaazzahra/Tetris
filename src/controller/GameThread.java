@@ -2,13 +2,17 @@ package controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import view.BoardView;
 import view.GameView;
+import view.InputScoreView;
 
 public class GameThread extends Thread {
 
     private BoardView board;
     private GameView frame;
+//    private InputScoreView inputScoreView;
+    private ScoreController scoreController;
     private int score;
 
     public GameThread(BoardView board, GameView frame) {
@@ -31,13 +35,42 @@ public class GameThread extends Thread {
             }
 
             if(board.isBlockOutOfBounds()) {
-                frame.gameOver();
+                gameOver();
                 break;
             }
 
             board.moveBlockToBackground();
-            score += board.clearLines();
+            score += board.clearLines() * 20;
             frame.updateScore(score);
         }
+    }
+    
+    
+
+    public int getScore() {
+        return score;
+    }
+
+    public void resetScore() {
+        frame.updateScore(0);
+    }
+    
+     public void resetGame() {
+        board.resetBackground();
+        resetScore();
+        frame.startGame();
+    }
+   
+    
+    public void gameOver() {
+        int finalScore = getScore();
+        String playerName = JOptionPane.showInputDialog("Game Over!\nPlease enter your name");
+        scoreController = new ScoreController(playerName, finalScore);
+        scoreController.insertScore();
+        resetGame();
+        
+        // jika pake input score
+//        inputScoreView = new InputScoreView(finalScore);
+//        inputScoreView.setVisible(true);
     }
 }

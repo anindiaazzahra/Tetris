@@ -26,4 +26,8 @@ public class LeaderboardController {
             }
         });
     }
+    
+    public void readLeaderboard(){
+        // ini yang akan di kerja besok
+    }
 }
