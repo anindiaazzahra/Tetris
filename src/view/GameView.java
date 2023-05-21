@@ -132,7 +132,8 @@ public class GameView extends JFrame {
     
     public void resetGame() {
         boardView.resetBackground();
-        updateScore(0);
+        resetScore();
+        startGame();
     }
     
     public void gameOver() {
