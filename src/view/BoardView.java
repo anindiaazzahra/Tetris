@@ -323,6 +323,11 @@ public class BoardView extends JPanel implements KeyListener {
         }  
     }
     
+    public void resetBackground() {
+        background = new Color[GRID_BARIS][GRID_KOLOM];
+        repaint();
+    }
+    
     private void drawGridSquare(Graphics g, Color color, int x, int y) {
         
         g.setColor(color); // ngewarnain blocknya
@@ -337,7 +342,9 @@ public class BoardView extends JPanel implements KeyListener {
         super.paintComponent(g);                
         
         drawBackground(g);
-        drawBlock(g);
+        if (block != null) {
+            drawBlock(g);
+        }
     }
     
     

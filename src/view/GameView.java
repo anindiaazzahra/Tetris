@@ -1,29 +1,39 @@
 package view;
 
+import controller.GameController;
 import controller.GameThread;
-import javax.swing.BorderFactory;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.border.Border;
-import view.BoardView;
+import java.awt.Image;
+import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 
 public class GameView extends JFrame {
 
-    public static final int LEBAR = 500, TINGGI = 706;
-    private JLabel scoreLabel;
-    private BoardView board;
+    private SplashScreenView splashScreenView;
+    private BoardView boardView;
+    
+    public static final int LEBAR = 600, TINGGI = 706;
+    public JButton pauseBtn;
+    private JLabel scoreLabel;   
 
-    public GameView() {
+    public GameView() throws FontFormatException, IOException {
         super("T E T R I S");
 
-        scoreLabel = new JLabel("Score: 0");
+        scoreLabel = new JLabel("SCORE: 0");
 
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,8 +60,8 @@ public class GameView extends JFrame {
         };
         gridPanel.setPreferredSize(new Dimension(361, 661));
 
-        board = new BoardView();
-        board.setPreferredSize(new Dimension(301, 600));
+        boardView = new BoardView();
+        boardView.setPreferredSize(new Dimension(301, 600));
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
@@ -60,23 +70,76 @@ public class GameView extends JFrame {
         constraints.weighty = 1.0;
         constraints.anchor = GridBagConstraints.CENTER;
 
-        gridPanel.add(board, constraints);
+        gridPanel.add(boardView, constraints);
+
+        JPanel scorePanel = new JPanel(null);
+        scorePanel.setPreferredSize(new Dimension(212, 600));
+        //scorePanel.setBounds(0, 0, 800, 661);
+
+        ImageIcon pauseIcon = new ImageIcon(getClass().getResource("/resources/icons/pause.png"));
+        ImageIcon originalIcon = pauseIcon;
+
+        Image image = originalIcon.getImage();
+
+        int newWidth = 50;
+        int newHeight = 50;
+
+        Image resizedImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+
+        pauseBtn = new JButton(resizedIcon);
+
+        pauseBtn.setBorderPainted(false);
+        pauseBtn.setContentAreaFilled(false);
+        pauseBtn.setFocusPainted(false);
+        pauseBtn.setOpaque(false);
+        
+        
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/resources/fonts/PressStart2P.ttf"));
+        Font font = customFont.deriveFont(Font.PLAIN, 20);
+        scoreLabel.setFont(font);
+        scoreLabel.setHorizontalAlignment(JLabel.CENTER);
+        scoreLabel.setBounds(0, 100, 210, 50);
+        
+        pauseBtn.setBounds(80, 500, 50, 50);
+        
+        scorePanel.add(scoreLabel);
+        scorePanel.add(pauseBtn);
 
         add(gridPanel);
-        add(scoreLabel);
+        add(scorePanel);
 
         pack();
 
         setLocationRelativeTo(null);
-
+        
         startGame();
+
+        GameController gameController = new GameController(this);
     }
 
     public void startGame() {
-        new GameThread(board, this).start();
+        new GameThread(boardView, this).start();
     }
 
     public void updateScore(int score) {
-        scoreLabel.setText("Score: " + score);
+        scoreLabel.setText("SCORE: " + score);
+    }
+    
+    public void resetScore() {
+        updateScore(0);
+    }
+    
+    public void resetGame() {
+        boardView.resetBackground();
+        updateScore(0);
+    }
+    
+    public void gameOver() {
+        String playerName = JOptionPane.showInputDialog("Game Over!\nPlease enter your name");
+        System.out.println(playerName);
+        
+        resetGame();
     }
 }
+

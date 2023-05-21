@@ -31,7 +31,7 @@ public class GameThread extends Thread {
             }
 
             if(board.isBlockOutOfBounds()) {
-                System.out.println("Game Over");
+                frame.gameOver();
                 break;
             }
 

@@ -20,6 +20,10 @@ import javax.swing.border.EmptyBorder;
 
 public class SplashScreenView extends JFrame {
     
+    public static final int LEBAR = 600, TINGGI = 706;
+    private GameView gameView;
+    private BoardView boardView;
+    
     JPanel centerPanel = new JPanel();
     
     JLabel titleLabel = new JLabel("TETRIS");
@@ -32,19 +36,19 @@ public class SplashScreenView extends JFrame {
     public SplashScreenView() {
         setTitle("T E T R I S");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(445, 631);
+        setSize(LEBAR, TINGGI);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setResizable(false);
         setVisible(true);
         
                 
-        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 16));
+        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
         
-        int topMargin = 80;
-        int leftMargin = 20;
+        int topMargin = 100;
+        int leftMargin = 100;
         int bottomMargin = 0;
-        int rightMargin = 20;
+        int rightMargin = 100;
         
         centerPanel.setBorder(BorderFactory.createEmptyBorder(topMargin, leftMargin, bottomMargin, rightMargin));
         centerPanel.setBackground(new Color(38, 38, 38));
@@ -69,14 +73,13 @@ public class SplashScreenView extends JFrame {
         titleLabel.setBorder(margin);
         titleLabel.setForeground(Color.white);
         
-        titleLabel.setBounds(0, 100, 500, 30);
         
        ButtonKeyListener buttonKeyListener = new ButtonKeyListener(this);
     }
     
     public static JComponent changeFontType(JComponent component, int fontSize) {
         try {
-            Font tetrisFont = Font.createFont(Font.TRUETYPE_FONT, SplashScreenView.class.getResourceAsStream("/font/PressStart2P.ttf"));
+            Font tetrisFont = Font.createFont(Font.TRUETYPE_FONT, SplashScreenView.class.getResourceAsStream("/resources/fonts/PressStart2P.ttf"));
             tetrisFont = tetrisFont.deriveFont(Font.PLAIN, fontSize);
             component.setFont(tetrisFont);
         } catch (Exception e) {
