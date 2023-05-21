@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/controller/LeaderboardController.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/model/ScoreModel.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/tetris/Tetris.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/controller/ScoreController.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/controller/GameThread.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/view/GameView.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/view/LeaderboardView.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/controller/GameController.java</file>
+            <file>file:/C:/Users/user/OneDrive/Documents/TUGAS%20ONGOING/SMS%204/Prak%20PBo/Tetris/src/model/Connector.java</file>
+        </group>
     </open-files>
 </project-private>
