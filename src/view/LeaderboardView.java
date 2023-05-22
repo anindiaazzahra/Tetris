@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import controller.LeaderboardData;
+import model.LeaderboardModel;
 
 public class LeaderboardView extends JFrame {
     
@@ -68,20 +70,9 @@ public class LeaderboardView extends JFrame {
         
         // create leaderboard table
         String[] columnNames = {"Rank", "Player Name", "Score"};
-        Object[][] data = {
-            {"1", "Player 1", "1000"},
-            {"2", "Player 2", "800"},
-            {"3", "Player 3", "600"},
-            {"4", "Player 4", "400"},
-            {"5", "Player 5", "200"},
-            {"6", "Player 6", "200"},
-            {"7", "Player 7", "200"},
-            {"8", "Player 8", "200"},
-            {"9", "Player 9", "200"},
-            {"10", "Player 10", "200"},
-            {"11", "Player 11", "200"},
-            {"12", "Player 12", "200"},
-        };
+        LeaderboardModel leaderboardModel = new LeaderboardModel();
+        LeaderboardData leaderboardData = leaderboardModel.readLeaderboard();
+        String[][] data = leaderboardData.getData().toArray(new String[0][0]);
         tableModel = new DefaultTableModel(data, columnNames);
         leaderboardTable = new JTable(tableModel);
         leaderboardTable.setBounds(240, 230, 360, 200);
