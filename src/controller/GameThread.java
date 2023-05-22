@@ -41,6 +41,7 @@ public class GameThread extends Thread {
                 break;
             }
             
+            // jika true, menambahkan kecepatan blok
             if((getScore() > 200) || (getScore() > 500) || (getScore() > 1000)){
                 int timeNow = getTime() - 100;
                 setTime(timeNow);

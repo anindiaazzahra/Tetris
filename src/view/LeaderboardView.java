@@ -18,12 +18,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controller.LeaderboardData;
 import model.LeaderboardModel;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 public class LeaderboardView extends JFrame {
     
     public static final int LEBAR = 600;
     public static final int TINGGI = 706;
-    public JButton backBtn;
+    public JButton backBtn,deleteBtn;
     private JLabel titleLabel;
     private JPanel leaderboardPanel;
     private JTable leaderboardTable;
@@ -87,6 +89,23 @@ public class LeaderboardView extends JFrame {
         scrollPane.setBounds(240, 230, 360, 200);
         leaderboardPanel.add(scrollPane);
         
+        // Membuat tombol penghapusan data
+        deleteBtn = new JButton("Delete Data");
+        deleteBtn.setPreferredSize(new Dimension(200, 50));
+        deleteBtn.setBackground(Color.RED);
+        deleteBtn.setForeground(Color.WHITE);
+        
+        // Mengatur tampilan tombol
+        Font buttonFont = fontLB.deriveFont(Font.BOLD, 14);
+        deleteBtn.setFont(buttonFont);
+        Border buttonBorder = BorderFactory.createEmptyBorder(5, 10, 5, 10);
+        deleteBtn.setBorder(buttonBorder);
+
+     
+
+        // Menambahkan tombol penghapusan di bawah tabel leaderboard
+        leaderboardPanel.add(deleteBtn);
+        
         // setContentPane(leaderboardPanel);
         add(leaderboardPanel);
         
@@ -95,4 +114,16 @@ public class LeaderboardView extends JFrame {
         
         LeaderboardController leaderboardController = new LeaderboardController(this);
     }
+
+    public DefaultTableModel getTableModel() {
+        return tableModel;
+    }
+
+    public JTable getLeaderboardTable() {
+        return leaderboardTable;
+    }
+    
+    
+    
+    
 }
