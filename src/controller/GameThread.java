@@ -14,6 +14,7 @@ public class GameThread extends Thread {
 //    private InputScoreView inputScoreView;
     private ScoreController scoreController;
     private int score;
+    private int time;
 
     public GameThread(BoardView board, GameView frame) {
         this.board = board;
@@ -23,12 +24,13 @@ public class GameThread extends Thread {
     @Override
     public void run() {
         // infinite loop
+        setTime(800);
         while (true) {
             board.SpawnBlock();
 
             while (board.moveBlockDown() == true) {
                 try {
-                    Thread.sleep(800);
+                    Thread.sleep(getTime());
                 } catch (InterruptedException ex) {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -38,11 +40,25 @@ public class GameThread extends Thread {
                 gameOver();
                 break;
             }
+            
+            // jika true, menambahkan kecepatan blok
+            if((getScore() > 200) || (getScore() > 500) || (getScore() > 1000)){
+                int timeNow = getTime() - 100;
+                setTime(timeNow);
+            }
 
             board.moveBlockToBackground();
-            score += board.clearLines() * 20;
+            score += board.clearLines() * 2;
             frame.updateScore(score);
         }
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
     
     
@@ -57,6 +73,7 @@ public class GameThread extends Thread {
     
      public void resetGame() {
         board.resetBackground();
+        setTime(800);
         resetScore();
         frame.startGame();
     }
