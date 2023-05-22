@@ -11,7 +11,7 @@ public class GameThread extends Thread {
 
     private BoardView board;
     private GameView frame;
-//    private InputScoreView inputScoreView;
+    private InputScoreView inputScoreView;
     private ScoreController scoreController;
     private int score;
     private int time;
@@ -37,6 +37,7 @@ public class GameThread extends Thread {
             }
 
             if(board.isBlockOutOfBounds()) {
+                
                 gameOver();
                 break;
             }
@@ -81,13 +82,14 @@ public class GameThread extends Thread {
     
     public void gameOver() {
         int finalScore = getScore();
-        String playerName = JOptionPane.showInputDialog("Game Over!\nPlease enter your name");
-        scoreController = new ScoreController(playerName, finalScore);
-        scoreController.insertScore();
-        resetGame();
-        
-        // jika pake input score
-//        inputScoreView = new InputScoreView(finalScore);
-//        inputScoreView.setVisible(true);
+        inputScoreView = new InputScoreView(finalScore);
+        inputScoreView.setVisible(true);
+        inputScoreView.getInputButton().addActionListener(e -> {
+            String playerName = inputScoreView.getInputPlayerName().getText();
+            scoreController = new ScoreController(playerName, finalScore);
+            scoreController.insertScore();
+            resetGame();
+            inputScoreView.dispose();
+        });
     }
 }
