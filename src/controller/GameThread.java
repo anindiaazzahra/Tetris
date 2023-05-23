@@ -54,7 +54,12 @@ public class GameThread extends Thread {
                     } catch (InterruptedException ex) {
                         Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    timePerLevel(level);
                 } else {
+                    if (boardView.isBlockOutOfBounds()) {
+                        gameOver();
+                        break;
+                    }
 
                     boardView.moveBlockToBackground();
                     score += boardView.clearLines() * 50;
