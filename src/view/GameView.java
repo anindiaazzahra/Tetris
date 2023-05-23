@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 
 
 public class GameView extends JFrame {
-    
+
     private SplashScreenView splashScreenView;
     private BoardView boardView;
     private GameThread gameThread;
@@ -62,7 +62,7 @@ public class GameView extends JFrame {
         gridPanel.setPreferredSize(new Dimension(361, 661));
 
         boardView = new BoardView();
-                
+        
         boardView.setPreferredSize(new Dimension(301, 600));
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -98,12 +98,12 @@ public class GameView extends JFrame {
         
         
         Font customFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/resources/fonts/PressStart2P.ttf"));
-        Font font = customFont.deriveFont(Font.PLAIN, 20);
+        Font font = customFont.deriveFont(Font.PLAIN, 15);
         scoreLabel.setFont(font);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         scoreLabel.setBounds(0, 100, 210, 50);
         
-        pauseBtn.setBounds(80, 500, 50, 50);       
+        pauseBtn.setBounds(80, 500, 50, 50);
         
         scorePanel.add(scoreLabel);
         scorePanel.add(pauseBtn);
@@ -116,30 +116,23 @@ public class GameView extends JFrame {
         setLocationRelativeTo(null);
         
         gameThread = new GameThread(boardView, this);
-        startGame();
-        
-                
+        gameThread.startGame();
 
         InGameKeyListener inGameKeyListener = new InGameKeyListener(this, new GameThread(boardView, this), boardView);
     }
 
-    public void startGame() {
-        gameThread.start();
-        
+
+    public void updateScore(int score) {
+        scoreLabel.setText("SCORE: " + score);
     }
     
-    public void pauseGame() {
+     public void pauseGame() {
         gameThread.pauseGame();
     } 
     
     public void resumeGame() {
         gameThread.resumeGame();
     } 
-
-    public void updateScore(int score) {
-        scoreLabel.setText("SCORE: " + score);
-    }
-    
     
     // jika pake inputSocreView
 //    public void resetScore() {

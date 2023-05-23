@@ -7,6 +7,7 @@ public class InputScoreView extends javax.swing.JFrame {
     private String playerName;
     private ScoreController scoreController;
     private GameView gameView ;
+    private SplashScreenView splashScreenView;
 
 
     public InputScoreView(int finalScore) {
