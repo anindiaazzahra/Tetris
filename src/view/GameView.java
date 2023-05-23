@@ -22,9 +22,10 @@ import javax.swing.JOptionPane;
 
 
 public class GameView extends JFrame {
-
+    
     private SplashScreenView splashScreenView;
     private BoardView boardView;
+    private GameThread gameThread;
     
     public static final int LEBAR = 600, TINGGI = 706;
     public JButton pauseBtn;
@@ -61,6 +62,7 @@ public class GameView extends JFrame {
         gridPanel.setPreferredSize(new Dimension(361, 661));
 
         boardView = new BoardView();
+                
         boardView.setPreferredSize(new Dimension(301, 600));
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -101,7 +103,7 @@ public class GameView extends JFrame {
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         scoreLabel.setBounds(0, 100, 210, 50);
         
-        pauseBtn.setBounds(80, 500, 50, 50);
+        pauseBtn.setBounds(80, 500, 50, 50);       
         
         scorePanel.add(scoreLabel);
         scorePanel.add(pauseBtn);
@@ -113,14 +115,26 @@ public class GameView extends JFrame {
 
         setLocationRelativeTo(null);
         
+        gameThread = new GameThread(boardView, this);
         startGame();
+        
+                
 
-        GameController gameController = new GameController(this);
+        GameController gameController = new GameController(this, new GameThread(boardView, this), boardView);
     }
 
     public void startGame() {
-        new GameThread(boardView, this).start();
+        gameThread.start();
+        
     }
+    
+    public void pauseGame() {
+        gameThread.pauseGame();
+    } 
+    
+    public void resumeGame() {
+        gameThread.resumeGame();
+    } 
 
     public void updateScore(int score) {
         scoreLabel.setText("SCORE: " + score);
