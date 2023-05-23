@@ -18,7 +18,7 @@ public class InGameKeyListener {
     private GameThread gameThread;
     private BoardView boardView;
     
-    public InGameKeyListener(GameView gameView,GameThread gameThread, BoardView boardView) {
+    public InGameKeyListener(GameView gameView, GameThread gameThread, BoardView boardView) {
         this.gameView = gameView;
         this.gameThread = gameThread;
         // this.boardView = boardView;

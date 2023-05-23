@@ -6,13 +6,14 @@ import javax.swing.JOptionPane;
 import view.BoardView;
 import view.GameView;
 import view.InputScoreView;
+import view.SplashScreenView;
 
 public class GameThread extends Thread {
 
     private BoardView boardView;
     private GameView gameView;
+    private SplashScreenView splashScreenView;
     private InputScoreView inputScoreView;
-
     private ScoreController scoreController;
     private int score;
     private int time;
@@ -38,12 +39,6 @@ public class GameThread extends Thread {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            if(boardView.isBlockOutOfBounds()) {
-                
-                gameOver();
-                break;
-            }
             
             if (!blockFrozen) {
                 if (!blockMoving) {
@@ -63,13 +58,16 @@ public class GameThread extends Thread {
                         break;
                     }
 
-                    if ((getScore() > 200) || (getScore() > 500) || (getScore() > 1000)) {
-                        int timeNow = getTime() - 100;
-                        setTime(timeNow);
+                    if ((getScore() > 200)) {
+                        setTime(500);
+                    } else if(getScore() > 500){
+                        setTime(300);
+                    }else if (getScore() > 1000){
+                        setTime(100);
                     }
 
                     boardView.moveBlockToBackground();
-                    score += boardView.clearLines() * 2;
+                    score += boardView.clearLines() * 10;
                     gameView.updateScore(score);
                     blockMoving = false; 
                 }
@@ -84,6 +82,8 @@ public class GameThread extends Thread {
     public void setTime(int time) {
         this.time = time;
     }
+    
+    
 
     public int getScore() {
         return score;
@@ -92,14 +92,20 @@ public class GameThread extends Thread {
     public void resetScore() {
         gameView.updateScore(0);
     }
-
-    public void resetGame() {
+    
+     public void resetGame() {
         boardView.resetBackground();
         setTime(800);
         resetScore();
-        gameView.startGame();
+        startGame();
     }
-
+     
+    public void startGame() {
+        //new GameThread(boardView, this).start();
+        start();
+    }
+   
+    
     public void gameOver() {
         int finalScore = getScore();
         inputScoreView = new InputScoreView(finalScore);
@@ -108,11 +114,14 @@ public class GameThread extends Thread {
             String playerName = inputScoreView.getInputPlayerName().getText();
             scoreController = new ScoreController(playerName, finalScore);
             scoreController.insertScore();
-            resetGame();
+            //resetGame();
+            gameView.dispose();
+            splashScreenView = new SplashScreenView();
+            splashScreenView.setVisible(true);
             inputScoreView.dispose();
         });
     }
-
+    
     public void pauseGame() {
         paused = true;
         blockFrozen = true;
@@ -124,7 +133,4 @@ public class GameThread extends Thread {
         blockFrozen = false;
         blockMoving = true;
     }
-    
 }
-
-
