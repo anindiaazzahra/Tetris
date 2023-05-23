@@ -16,7 +16,7 @@ public class GameThread extends Thread {
     private InputScoreView inputScoreView;
     private ScoreController scoreController;
     private int level = 1;
-    private int score;
+    private int score = 0;
     private int time;
     private volatile boolean paused;
     private volatile boolean blockFrozen;
@@ -31,11 +31,11 @@ public class GameThread extends Thread {
     public void run() {
         // infinite loop
         setTime(800);
-
+        int miniScore = 200;
         while (true) {
             while (paused) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(getTime());
                 } catch (InterruptedException ex) {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -45,7 +45,7 @@ public class GameThread extends Thread {
                 if (!blockMoving) {
                     boardView.SpawnBlock();
                     blockMoving = true;
-                    score += 5;
+                    score += 10;                  
                 }
 
                 if (boardView.moveBlockDown()) {
@@ -55,28 +55,20 @@ public class GameThread extends Thread {
                         Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    if (boardView.isBlockOutOfBounds()) {
-                        gameOver();
-                        break;
-                    }
-
-                    /*
-                    if ((getScore() > 100)) {
-                        setTime(500);
-                    } else if(getScore() > 400){
-                        setTime(300);
-                    }else if (getScore() > 1000){
-                        setTime(100);
-                    }*/
-                    
-                    if(level % 2 == 0) {
-                        
-                    }
 
                     boardView.moveBlockToBackground();
-                    score += boardView.clearLines() * 10;
-                    if((score % 100 == 0) && score != 0) {
+                    score += boardView.clearLines() * 50;
+                    timePerLevel(level);
+                    
+                    System.out.println("Score sekarang = " + score);
+                    System.out.println("Level = " + level);
+                    System.out.println("Time Sekarang : " + getTime());
+                    System.out.println("-----------------------------------");
+                    
+                    if((score >= miniScore)){
                         level++;
+                        miniScore += 200;
+                        System.out.println("NAIK LEVEL");
                     }
                     gameView.updateLevel(level);
                     gameView.updateScore(score);
@@ -86,6 +78,38 @@ public class GameThread extends Thread {
         }
     }
 
+    public void timePerLevel(int level){
+        switch (level) {
+            case 2: 
+                setTime(700);
+                break;
+            case 4:
+                setTime(600);
+                break;
+            case 8:
+                setTime(500);
+                break;
+            case 10:
+                setTime(400);
+                break;
+            case 12:
+                setTime(300);
+                break;
+            case 15:
+                setTime(100);
+                break;
+            case 20:
+                setTime(90);
+                break;
+            case 25:
+                setTime(80);
+                break;
+            default:
+                // Tidak ada perubahan waktu untuk level lainnya
+                break;
+        }
+    }
+    
     public int getTime() {
         return time;
     }
@@ -114,7 +138,6 @@ public class GameThread extends Thread {
         start();
     }
    
-    
     public void gameOver() {
         int finalScore = getScore();
         inputScoreView = new InputScoreView(finalScore);
@@ -123,7 +146,6 @@ public class GameThread extends Thread {
             String playerName = inputScoreView.getInputPlayerName().getText();
             scoreController = new ScoreController(playerName, finalScore);
             scoreController.insertScore();
-            //resetGame();
             gameView.dispose();
             splashScreenView = new SplashScreenView();
             splashScreenView.setVisible(true);

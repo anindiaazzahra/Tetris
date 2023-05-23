@@ -32,7 +32,7 @@ public class PauseScreenView extends JFrame{
     JLabel titleLabel = new JLabel("PAUSED");
     
     public JButton resumeBtn = new JButton();
-    public JButton tutorialBtn = new JButton();
+    public JButton mainMenuBtn = new JButton();
     public JButton quitBtn = new JButton();
 
     
@@ -62,7 +62,7 @@ public class PauseScreenView extends JFrame{
         
         centerPanel.add(Box.createVerticalGlue());
         centerPanel.add(createStyledButton(resumeBtn, "RESUME"));
-        centerPanel.add(createStyledButton(tutorialBtn, "TUTORIAL"));
+        centerPanel.add(createStyledButton(mainMenuBtn, "MAIN MENU"));
         centerPanel.add(createStyledButton(quitBtn, "QUIT GAME"));
         centerPanel.add(Box.createVerticalGlue());
         
