@@ -11,14 +11,16 @@ import model.LeaderboardModel;
 import model.DeleteDataLeaderboard;
 import view.LeaderboardView;
 import view.SplashScreenView;
+import view.ConfirmationView;
 
 public class LeaderboardController {
     
     private LeaderboardView leaderboardView;
+    private ConfirmationView confirmationView;
     
     public LeaderboardController(LeaderboardView leaderboardView) {
         this.leaderboardView = leaderboardView;
-        
+       
         leaderboardView.backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -33,8 +35,18 @@ public class LeaderboardController {
         leaderboardView.deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                deleteAllData();
+                    confirmDeleteScore();              
             }
+        });
+    }
+    
+    public void confirmDeleteScore(){
+        confirmationView = new ConfirmationView();
+        confirmationView.setVisible(true);
+        
+        confirmationView.getYesButton().addActionListener(e -> {
+            deleteAllData();
+            confirmationView.dispose();
         });
     }
     

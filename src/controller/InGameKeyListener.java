@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 import view.GameView;
 import view.SplashScreenView;
 
-public class GameController {
+public class InGameKeyListener {
     
     private GameView gameView;
     
-    public GameController(GameView gameView) {
+    public InGameKeyListener(GameView gameView) {
         this.gameView = gameView;
         
         gameView.pauseBtn.addActionListener(new ActionListener() {

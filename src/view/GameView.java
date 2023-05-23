@@ -1,6 +1,6 @@
 package view;
 
-import controller.GameController;
+import controller.InGameKeyListener;
 import controller.GameThread;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -115,7 +115,7 @@ public class GameView extends JFrame {
         
         startGame();
 
-        GameController gameController = new GameController(this);
+        InGameKeyListener gameController = new InGameKeyListener(this);
     }
 
     public void startGame() {

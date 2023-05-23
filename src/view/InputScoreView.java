@@ -112,12 +112,15 @@ public class InputScoreView extends javax.swing.JFrame {
 
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         playerName = inputPlayerName.getText();
-//        scoreController = new ScoreController(playerName, finalScore);
-//        scoreController.setFinalScore(finalScore);
-//        scoreController.setPlayerName(playerName);
-//        gameView.resetGame();
     }//GEN-LAST:event_inputButtonActionPerformed
 
+    public javax.swing.JButton getInputButton() {
+        return inputButton;
+    }
+
+    public javax.swing.JTextField getInputPlayerName() {
+        return inputPlayerName;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton inputButton;
