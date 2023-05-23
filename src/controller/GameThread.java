@@ -15,6 +15,7 @@ public class GameThread extends Thread {
     private SplashScreenView splashScreenView;
     private InputScoreView inputScoreView;
     private ScoreController scoreController;
+    private int level = 1;
     private int score;
     private int time;
     private volatile boolean paused;
@@ -44,6 +45,7 @@ public class GameThread extends Thread {
                 if (!blockMoving) {
                     boardView.SpawnBlock();
                     blockMoving = true;
+                    score += 5;
                 }
 
                 if (boardView.moveBlockDown()) {
@@ -58,16 +60,25 @@ public class GameThread extends Thread {
                         break;
                     }
 
-                    if ((getScore() > 200)) {
+                    /*
+                    if ((getScore() > 100)) {
                         setTime(500);
-                    } else if(getScore() > 500){
+                    } else if(getScore() > 400){
                         setTime(300);
                     }else if (getScore() > 1000){
                         setTime(100);
+                    }*/
+                    
+                    if(level % 2 == 0) {
+                        
                     }
 
                     boardView.moveBlockToBackground();
                     score += boardView.clearLines() * 10;
+                    if((score % 100 == 0) && score != 0) {
+                        level++;
+                    }
+                    gameView.updateLevel(level);
                     gameView.updateScore(score);
                     blockMoving = false; 
                 }
@@ -83,8 +94,6 @@ public class GameThread extends Thread {
         this.time = time;
     }
     
-    
-
     public int getScore() {
         return score;
     }
