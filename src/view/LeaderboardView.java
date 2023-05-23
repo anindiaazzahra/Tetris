@@ -90,7 +90,7 @@ public class LeaderboardView extends JFrame {
         leaderboardPanel.add(scrollPane);
         
         // Membuat tombol penghapusan data
-        deleteBtn = new JButton("Delete Data");
+        deleteBtn = new JButton("RESET SCORE");
         deleteBtn.setPreferredSize(new Dimension(200, 50));
         deleteBtn.setBackground(Color.RED);
         deleteBtn.setForeground(Color.WHITE);
@@ -101,6 +101,7 @@ public class LeaderboardView extends JFrame {
         Border buttonBorder = BorderFactory.createEmptyBorder(5, 10, 5, 10);
         deleteBtn.setBorder(buttonBorder);
 
+        
      
 
         // Menambahkan tombol penghapusan di bawah tabel leaderboard

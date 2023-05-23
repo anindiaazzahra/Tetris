@@ -11,14 +11,14 @@ import view.GameView;
 import view.PauseScreenView;
 import view.SplashScreenView;
 
-public class GameController {
+public class InGameKeyListener {
     
     private GameView gameView;
     private PauseScreenView pauseScreenView;
     private GameThread gameThread;
     private BoardView boardView;
     
-    public GameController(GameView gameView, GameThread gameThread, BoardView boardView) {
+    public InGameKeyListener(GameView gameView,GameThread gameThread, BoardView boardView) {
         this.gameView = gameView;
         this.gameThread = gameThread;
         // this.boardView = boardView;
@@ -35,7 +35,7 @@ public class GameController {
         });
     }   
     
-    public GameController(GameView gameView, PauseScreenView pauseScreenView,  GameThread gameThread, BoardView boardView) {
+    public InGameKeyListener(GameView gameView, PauseScreenView pauseScreenView,  GameThread gameThread, BoardView boardView) {
         this.gameView = gameView;
         this.pauseScreenView = pauseScreenView;
         this.gameThread = gameThread;

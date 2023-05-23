@@ -8,9 +8,11 @@ import view.GameView;
 import view.InputScoreView;
 
 public class GameThread extends Thread {
+
     private BoardView boardView;
     private GameView gameView;
-//    private InputScoreView inputScoreView;
+    private InputScoreView inputScoreView;
+
     private ScoreController scoreController;
     private int score;
     private int time;
@@ -35,6 +37,12 @@ public class GameThread extends Thread {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+
+            if(boardView.isBlockOutOfBounds()) {
+                
+                gameOver();
+                break;
             }
             
             if (!blockFrozen) {
@@ -94,10 +102,15 @@ public class GameThread extends Thread {
 
     public void gameOver() {
         int finalScore = getScore();
-        String playerName = JOptionPane.showInputDialog("Game Over!\nPlease enter your name");
-        scoreController = new ScoreController(playerName, finalScore);
-        scoreController.insertScore();
-        resetGame();
+        inputScoreView = new InputScoreView(finalScore);
+        inputScoreView.setVisible(true);
+        inputScoreView.getInputButton().addActionListener(e -> {
+            String playerName = inputScoreView.getInputPlayerName().getText();
+            scoreController = new ScoreController(playerName, finalScore);
+            scoreController.insertScore();
+            resetGame();
+            inputScoreView.dispose();
+        });
     }
 
     public void pauseGame() {

@@ -9,10 +9,12 @@ import java.util.logging.Logger;
 import view.GameView;
 import view.LeaderboardView;
 import view.SplashScreenView;
+import view.InputScoreView;
 
 public class ButtonKeyListener {
     
     private SplashScreenView splashScreenView;
+    private InputScoreView inputScoreView;
     
     public ButtonKeyListener(SplashScreenView splashScreenView) {
         this.splashScreenView = splashScreenView;
@@ -22,7 +24,7 @@ public class ButtonKeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
       
-               GameView gameView = null;
+                GameView gameView = null;
                 try {
                     gameView = new GameView();
                 } catch (FontFormatException ex) {
@@ -63,5 +65,6 @@ public class ButtonKeyListener {
                 
             }
         });     
-    }     
-}
+    }  
+}  
+
