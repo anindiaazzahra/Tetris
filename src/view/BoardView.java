@@ -26,6 +26,7 @@ public class BoardView extends JPanel implements KeyListener {
     
     public BoardView() {
 
+        
         this.setLayout(null);
         this.setBounds(0, 0, 301, 601);
         this.setBackground(new Color(38, 38, 38));
@@ -347,7 +348,13 @@ public class BoardView extends JPanel implements KeyListener {
         }
     }
     
+    public void registerKeyListener() {
+        addKeyListener(this);
+    }
     
+    public void unregisterKeyListener() {
+        removeKeyListener(this);
+    }
     
     @Override
     public void keyTyped(KeyEvent e) {

@@ -9,48 +9,71 @@ import view.InputScoreView;
 
 public class GameThread extends Thread {
 
-    private BoardView board;
-    private GameView frame;
+    private BoardView boardView;
+    private GameView gameView;
     private InputScoreView inputScoreView;
+
     private ScoreController scoreController;
     private int score;
     private int time;
+    private volatile boolean paused;
+    private volatile boolean blockFrozen;
+    private volatile boolean blockMoving;
 
-    public GameThread(BoardView board, GameView frame) {
-        this.board = board;
-        this.frame = frame;
+    public GameThread(BoardView boardView, GameView gameView) {
+        this.boardView = boardView;
+        this.gameView = gameView;
     }
 
     @Override
     public void run() {
         // infinite loop
         setTime(800);
-        while (true) {
-            board.SpawnBlock();
 
-            while (board.moveBlockDown() == true) {
+        while (true) {
+            while (paused) {
                 try {
-                    Thread.sleep(getTime());
+                    Thread.sleep(100);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
-            if(board.isBlockOutOfBounds()) {
+            if(boardView.isBlockOutOfBounds()) {
                 
                 gameOver();
                 break;
             }
             
-            // jika true, menambahkan kecepatan blok
-            if((getScore() > 200) || (getScore() > 500) || (getScore() > 1000)){
-                int timeNow = getTime() - 100;
-                setTime(timeNow);
-            }
+            if (!blockFrozen) {
+                if (!blockMoving) {
+                    boardView.SpawnBlock();
+                    blockMoving = true;
+                }
 
-            board.moveBlockToBackground();
-            score += board.clearLines() * 2;
-            frame.updateScore(score);
+                if (boardView.moveBlockDown()) {
+                    try {
+                        Thread.sleep(getTime());
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (boardView.isBlockOutOfBounds()) {
+                        gameOver();
+                        break;
+                    }
+
+                    if ((getScore() > 200) || (getScore() > 500) || (getScore() > 1000)) {
+                        int timeNow = getTime() - 100;
+                        setTime(timeNow);
+                    }
+
+                    boardView.moveBlockToBackground();
+                    score += boardView.clearLines() * 2;
+                    gameView.updateScore(score);
+                    blockMoving = false; 
+                }
+            }            
         }
     }
 
@@ -61,25 +84,22 @@ public class GameThread extends Thread {
     public void setTime(int time) {
         this.time = time;
     }
-    
-    
 
     public int getScore() {
         return score;
     }
 
     public void resetScore() {
-        frame.updateScore(0);
+        gameView.updateScore(0);
     }
-    
-     public void resetGame() {
-        board.resetBackground();
+
+    public void resetGame() {
+        boardView.resetBackground();
         setTime(800);
         resetScore();
-        frame.startGame();
+        gameView.startGame();
     }
-   
-    
+
     public void gameOver() {
         int finalScore = getScore();
         inputScoreView = new InputScoreView(finalScore);
@@ -92,4 +112,19 @@ public class GameThread extends Thread {
             inputScoreView.dispose();
         });
     }
+
+    public void pauseGame() {
+        paused = true;
+        blockFrozen = true;
+        blockMoving = false;
+    }
+
+    public void resumeGame() {
+        paused = false;
+        blockFrozen = false;
+        blockMoving = true;
+    }
+    
 }
+
+
