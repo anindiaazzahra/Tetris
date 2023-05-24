@@ -29,12 +29,14 @@ public class GameView extends JFrame {
     
     public static final int LEBAR = 600, TINGGI = 706;
     public JButton pauseBtn;
-    private JLabel scoreLabel;   
+    private JLabel scoreLabel;  
+    private JLabel levelLabel; 
 
     public GameView() throws FontFormatException, IOException {
         super("T E T R I S");
 
         scoreLabel = new JLabel("SCORE: 0");
+        levelLabel = new JLabel("LEVEL: 1");
 
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,8 +105,13 @@ public class GameView extends JFrame {
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         scoreLabel.setBounds(0, 100, 210, 50);
         
+        levelLabel.setFont(font);
+        levelLabel.setHorizontalAlignment(JLabel.CENTER);
+        levelLabel.setBounds(0, 50, 210, 50);
+        
         pauseBtn.setBounds(80, 500, 50, 50);
         
+        scorePanel.add(levelLabel);
         scorePanel.add(scoreLabel);
         scorePanel.add(pauseBtn);
 
@@ -124,6 +131,10 @@ public class GameView extends JFrame {
 
     public void updateScore(int score) {
         scoreLabel.setText("SCORE: " + score);
+    }
+    
+    public void updateLevel(int level) {
+        levelLabel.setText("LEVEL: " + level);
     }
     
      public void pauseGame() {
