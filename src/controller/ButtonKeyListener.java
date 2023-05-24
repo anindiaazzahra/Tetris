@@ -10,6 +10,7 @@ import view.GameView;
 import view.LeaderboardView;
 import view.SplashScreenView;
 import view.InputScoreView;
+import view.TutorialView;
 
 public class ButtonKeyListener {
     
@@ -38,6 +39,24 @@ public class ButtonKeyListener {
                 
             }
         }); 
+        
+        splashScreenView.tutorialBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+      
+                TutorialView tutorialView = null;
+                try {
+                    tutorialView = new TutorialView();
+                } catch (FontFormatException ex) {
+                    Logger.getLogger(ButtonKeyListener.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ButtonKeyListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                tutorialView.setVisible(true);
+                splashScreenView.dispose();  
+            }
+        });
+        
         splashScreenView.leaderboardBtn.addActionListener(new ActionListener() {
        
             @Override
@@ -56,6 +75,7 @@ public class ButtonKeyListener {
                 
             }
         }); 
+        
         splashScreenView.quitBtn.addActionListener(new ActionListener() {
        
             @Override
