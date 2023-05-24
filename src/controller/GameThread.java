@@ -101,10 +101,10 @@ public class GameThread extends Thread {
                 setTime(300);
                 break;
             case 15:
-                setTime(100);
+                setTime(200);
                 break;
             case 20:
-                setTime(90);
+                setTime(100);
                 break;
             case 25:
                 setTime(80);
