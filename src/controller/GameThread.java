@@ -30,15 +30,17 @@ public class GameThread extends Thread {
     public void run() {
         // infinite loop
         setTime(800);
-        int miniScore = 200;
+        int miniScore = 200; // batas score untuk naik level
         while (true) {
             if (!paused) {
+                // mengecek blok yang sedang jatuh
                 if (!blockMoving) {
                     boardView.SpawnBlock();
                     blockMoving = true;
                     score += 10;                  
                 }
 
+                
                 if (boardView.moveBlockDown()) {
                     try {
                         Thread.sleep(getTime());

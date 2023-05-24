@@ -16,6 +16,7 @@ public class TetrisBlock {
        initShapes();
     }
     
+    // logika nge rotasi blok
     public void initShapes() {
         shapes = new int[4][][];
         
@@ -26,7 +27,6 @@ public class TetrisBlock {
             int kolom = shape.length;
             
             shapes[i] = new int[baris][kolom];
-            
             for(int row = 0; row < baris; row++) {
                 for(int col = 0; col < kolom; col++) {
                     shapes[i][row][col] = shape[kolom - col -1][row];
@@ -36,7 +36,7 @@ public class TetrisBlock {
         }
     }
     
-    // random rotasi
+    // fungsi spawn sekalian random rotasi
     public void spawn(int gridKolom) {
         
         Random random = new Random();
