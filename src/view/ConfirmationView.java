@@ -1,7 +1,4 @@
-
 package view;
-
-
 
 public class ConfirmationView extends javax.swing.JFrame {
 

@@ -45,11 +45,13 @@ public class BoardView extends JPanel implements KeyListener {
         SpawnBlock(); 
     }
    
+    // random blok yang akan muncul
     public void SpawnBlock() {
         
         Random random = new Random();
         
         block = blocks[ random.nextInt(blocks.length)];
+        System.out.println("Random : " + random.nextInt(blocks.length));
         block.spawn(GRID_KOLOM);
     }
     
@@ -118,30 +120,9 @@ public class BoardView extends JPanel implements KeyListener {
     }
     
     public void rotateBlock() {
-        
-        if(block.getLeftEdge() < 0) {
-            block.setX(0);
-        }
-        if(block.getRightEdge() >= GRID_KOLOM) {
-            block.setX(GRID_KOLOM - block.getWidth());
-        }
-        if(block.getBottomEdge() < 0) {
-            block.setY(1);
-        }
-        if(block.getBottomEdge() >= GRID_BARIS) {
-            block.setY(GRID_BARIS - block.getHeight());
-        }
-        
         if(checkRight() && checkLeft() && checkBottom()) {
             block.rotate();
         }
-        
-        /*
-        if(block == null) {
-            return;
-        }
-        block.rotate();
-        */               
         
         repaint();
     }

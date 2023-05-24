@@ -1,8 +1,7 @@
 package view;
 
-import controller.InGameKeyListener;
+import controller.InGameController;
 import controller.GameThread;
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,7 +17,6 @@ import java.awt.Image;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 
 public class GameView extends JFrame {
@@ -125,7 +123,7 @@ public class GameView extends JFrame {
         gameThread = new GameThread(boardView, this);
         gameThread.startGame();
 
-        InGameKeyListener inGameKeyListener = new InGameKeyListener(this, new GameThread(boardView, this), boardView);
+        InGameController inGameController = new InGameController(this, new GameThread(boardView, this), boardView);
     }
 
 

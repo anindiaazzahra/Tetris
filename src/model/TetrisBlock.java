@@ -36,6 +36,7 @@ public class TetrisBlock {
         }
     }
     
+    // random rotasi
     public void spawn(int gridKolom) {
         
         Random random = new Random();

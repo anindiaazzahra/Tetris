@@ -1,18 +1,13 @@
 package controller;
 
-import java.awt.FontFormatException;
-import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import view.BoardView;
 import view.GameView;
 import view.PauseScreenView;
 import view.SplashScreenView;
 
-public class InGameKeyListener {
+public class InGameController {
     
     private GameView gameView;
     private PauseScreenView pauseScreenView;
@@ -20,7 +15,7 @@ public class InGameKeyListener {
     private BoardView boardView;
     private SplashScreenView splashScreenView;
     
-    public InGameKeyListener(GameView gameView, GameThread gameThread, BoardView boardView) {
+    public InGameController(GameView gameView, GameThread gameThread, BoardView boardView) {
         this.gameView = gameView;
         this.gameThread = gameThread;
         // this.boardView = boardView;
@@ -37,7 +32,7 @@ public class InGameKeyListener {
         });
     }   
     
-    public InGameKeyListener(GameView gameView, PauseScreenView pauseScreenView,  GameThread gameThread, BoardView boardView) {
+    public InGameController(GameView gameView, PauseScreenView pauseScreenView,  GameThread gameThread, BoardView boardView) {
         this.gameView = gameView;
         this.pauseScreenView = pauseScreenView;
         this.gameThread = gameThread;

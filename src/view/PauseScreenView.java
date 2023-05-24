@@ -1,7 +1,6 @@
 package view;
 
-import controller.ButtonKeyListener;
-import controller.InGameKeyListener;
+import controller.InGameController;
 import controller.GameThread;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,8 +8,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -79,7 +76,7 @@ public class PauseScreenView extends JFrame{
         titleLabel.setBorder(margin);
         titleLabel.setForeground(Color.white);
         
-       InGameKeyListener inGameKeyListener = new InGameKeyListener(gameView, this, new GameThread(boardView, gameView), boardView);
+       InGameController inGameController = new InGameController(gameView, this, new GameThread(boardView, gameView), boardView);
     }
     
 
