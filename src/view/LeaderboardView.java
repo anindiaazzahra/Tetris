@@ -104,9 +104,7 @@ public class LeaderboardView extends JFrame {
         deleteBtn.setFont(buttonFont);
         Border buttonBorder = BorderFactory.createEmptyBorder(5, 10, 5, 10);
         deleteBtn.setBorder(buttonBorder);
-
-        
-     
+             
 
         // Menambahkan tombol penghapusan di bawah tabel leaderboard
         leaderboardPanel.add(deleteBtn);
@@ -126,9 +124,5 @@ public class LeaderboardView extends JFrame {
 
     public JTable getLeaderboardTable() {
         return leaderboardTable;
-    }
-    
-    
-    
-    
+    } 
 }
