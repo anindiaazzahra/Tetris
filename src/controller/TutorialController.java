@@ -1,15 +1,7 @@
 package controller;
 
-import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
-import javax.swing.table.DefaultTableModel;
-import model.LeaderboardModel;
-import model.DeleteDataLeaderboard;
-import view.LeaderboardView;
 import view.SplashScreenView;
 import view.ConfirmationView;
 import view.TutorialView;

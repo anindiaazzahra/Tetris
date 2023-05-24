@@ -45,11 +45,11 @@ public class BoardView extends JPanel implements KeyListener {
         SpawnBlock(); 
     }
    
+    // random blok yang akan muncul
     public void SpawnBlock() {
-        
         Random random = new Random();
-        
         block = blocks[ random.nextInt(blocks.length)];
+        System.out.println("Random : " + random.nextInt(blocks.length));
         block.spawn(GRID_KOLOM);
     }
     
@@ -64,7 +64,6 @@ public class BoardView extends JPanel implements KeyListener {
     
     public boolean moveBlockDown() {
         if (checkBottom() == false) {
-            
             return false;
         }
         
@@ -118,36 +117,15 @@ public class BoardView extends JPanel implements KeyListener {
     }
     
     public void rotateBlock() {
-        
-        if(block.getLeftEdge() < 0) {
-            block.setX(0);
-        }
-        if(block.getRightEdge() >= GRID_KOLOM) {
-            block.setX(GRID_KOLOM - block.getWidth());
-        }
-        if(block.getBottomEdge() < 0) {
-            block.setY(1);
-        }
-        if(block.getBottomEdge() >= GRID_BARIS) {
-            block.setY(GRID_BARIS - block.getHeight());
-        }
-        
         if(checkRight() && checkLeft() && checkBottom()) {
             block.rotate();
         }
         
-        /*
-        if(block == null) {
-            return;
-        }
-        block.rotate();
-        */               
-        
         repaint();
     }
     
+    // mengecek blok sudah sampai bawah atau belum
     private boolean checkBottom() {
-  
         if(block.getBottomEdge() == GRID_BARIS) {
             return false;
         } 
@@ -172,13 +150,17 @@ public class BoardView extends JPanel implements KeyListener {
         return true;
     }
     
+    // mengecek kanan blok 
     private boolean checkRight() {
+        // mengecek kanan blok apakah sudah sampai batas board
         if(block.getRightEdge() == GRID_KOLOM) {
             return false;
-        }         int[][]shape = block.getShape();
+        }         
+        int[][]shape = block.getShape();
         int lebar = block.getWidth();
         int tinggi = block.getHeight();
         
+        // mengecek kanan ada blok atau tidak
         for(int baris = 0; baris < tinggi; baris++) {
             for(int kolom = lebar -1; kolom >= 0; kolom--) {
                 if(shape[baris][kolom] != 0) {
@@ -195,7 +177,9 @@ public class BoardView extends JPanel implements KeyListener {
         return true;
     }
     
-        private boolean checkLeft() {
+    // mengecek kanan blok
+    private boolean checkLeft() {
+        // mengecek kiri blok apakah sudah sampai batas board
         if(block.getLeftEdge() == 0) {
             return false;
         } 
@@ -203,6 +187,7 @@ public class BoardView extends JPanel implements KeyListener {
         int lebar = block.getWidth();
         int tinggi = block.getHeight();
         
+        // mengecek kanan ada blok atau tidak
         for(int baris = 0; baris < tinggi; baris++) {
             for(int kolom = 0; kolom < lebar; kolom++) {
                 if(shape[baris][kolom] != 0) {
@@ -219,8 +204,8 @@ public class BoardView extends JPanel implements KeyListener {
         return true;
     }
     
+    // fungsi mengecek blok yang penuh
     public int clearLines() {
-        
         boolean lineFilled;
         int linesCleared = 0;
         
@@ -246,12 +231,14 @@ public class BoardView extends JPanel implements KeyListener {
         return linesCleared;
     }
     
+    // fungsi menghapus blok yang penuh
     private void clearLine(int baris) {
          for(int kolom = 0; kolom < GRID_KOLOM; kolom++) {
             background[baris][kolom] = null;
         }
     }
     
+    // fungsi untuk nurunin blok yang di atas, setelah blok full di hapus
     private void shiftDown(int baris) {
         for(int row = baris; row > 0; row--) {
             for(int col = 0; col < GRID_KOLOM; col++) {
@@ -259,7 +246,8 @@ public class BoardView extends JPanel implements KeyListener {
             }
         }
     }
-        
+   
+    // fungsi memindahkan blok yang sedang jatuh ke latar belakang atau grid latar belakang
     public void moveBlockToBackground() {
         int[][] shape = block.getShape();
         int h = block.getHeight();
@@ -276,7 +264,7 @@ public class BoardView extends JPanel implements KeyListener {
                     background[y + baris][x + kolom] = color;
                 }
             }
-        } 
+                   } 
     }
     
     // drawing foreground, block yang lagi jatuh
@@ -302,8 +290,8 @@ public class BoardView extends JPanel implements KeyListener {
         }     
     }
     
+    // menggambar background
     private void drawBackground(Graphics g) {
-    
         Color color;
         
         for (int baris = 0; baris < GRID_BARIS; baris++) {
@@ -333,7 +321,7 @@ public class BoardView extends JPanel implements KeyListener {
         g.setColor(color); // ngewarnain blocknya
         g.fillRect(x, y, UKURAN_KOTAK, UKURAN_KOTAK); // ngegambar blocknya
         g.setColor(new Color(38, 38, 38)); // ngewarnain outline
-        g.drawRect(x, y, UKURAN_KOTAK, UKURAN_KOTAK); // mgegambar outline
+        g.drawRect(x, y, UKURAN_KOTAK, UKURAN_KOTAK); // ngegambar outline
     }
     
     @Override

@@ -2,7 +2,6 @@ package controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import view.BoardView;
 import view.GameView;
 import view.InputScoreView;
@@ -19,7 +18,6 @@ public class GameThread extends Thread {
     private int score = 0;
     private int time;
     private volatile boolean paused;
-    private volatile boolean blockFrozen;
     private volatile boolean blockMoving;
 
     public GameThread(BoardView boardView, GameView gameView) {
@@ -27,27 +25,22 @@ public class GameThread extends Thread {
         this.gameView = gameView;
     }
 
+    // running game
     @Override
     public void run() {
         // infinite loop
         setTime(800);
-        int miniScore = 200;
+        int miniScore = 200; // batas score untuk naik level
         while (true) {
-            while (paused) {
-                try {
-                    Thread.sleep(getTime());
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
-            if (!blockFrozen) {
+            if (!paused) {
+                // mengecek blok yang sedang jatuh
                 if (!blockMoving) {
                     boardView.SpawnBlock();
                     blockMoving = true;
                     score += 10;                  
                 }
 
+                
                 if (boardView.moveBlockDown()) {
                     try {
                         Thread.sleep(getTime());
@@ -160,13 +153,11 @@ public class GameThread extends Thread {
     
     public void pauseGame() {
         paused = true;
-        blockFrozen = true;
         blockMoving = false;
     }
 
     public void resumeGame() {
         paused = false;
-        blockFrozen = false;
         blockMoving = true;
     }
 }

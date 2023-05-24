@@ -1,6 +1,6 @@
 package view;
 
-import controller.ButtonKeyListener;
+import controller.SplashScreenController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
@@ -74,7 +73,7 @@ public class SplashScreenView extends JFrame {
         titleLabel.setForeground(Color.white);
         
         
-       ButtonKeyListener buttonKeyListener = new ButtonKeyListener(this);
+       SplashScreenController buttonKeyListener = new SplashScreenController(this);
     }
     
     public static JComponent changeFontType(JComponent component, int fontSize) {
