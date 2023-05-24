@@ -7,4 +7,4 @@ Anggota Kelomppok :
 - Anindia Azzahra         / 123210072
 
 Note :
-sebelum menjalankan programnya, silahkan import file sql database yang terdapat di file database
+sebelum menjalankan programnya, silahkan import file database tetris.sql yang terdapat di file database
