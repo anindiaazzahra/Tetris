@@ -49,7 +49,6 @@ public class BoardView extends JPanel implements KeyListener {
     public void SpawnBlock() {
         Random random = new Random();
         block = blocks[ random.nextInt(blocks.length)];
-        System.out.println("Random : " + random.nextInt(blocks.length));
         block.spawn(GRID_KOLOM);
     }
     

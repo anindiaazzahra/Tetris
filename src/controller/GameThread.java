@@ -61,6 +61,7 @@ public class GameThread extends Thread {
                     System.out.println("Score sekarang = " + score);
                     System.out.println("Level = " + level);
                     System.out.println("Time Sekarang : " + getTime());
+                    System.out.println("Score untuk naik level : " + miniScore);
                     System.out.println("-----------------------------------");
                     
                     if((score >= miniScore)){

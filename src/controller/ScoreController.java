@@ -15,7 +15,7 @@ public class ScoreController {
     }
 
     public void insertScore(){
-        scoreModel = new ScoreModel(getPlayerName(),getFinalScore());
+        scoreModel = new ScoreModel(getPlayerName(),getFinalScore()-10);
     }
     
     public String getPlayerName() {
